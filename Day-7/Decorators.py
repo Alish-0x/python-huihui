@@ -84,3 +84,34 @@ def percent(func):
 def myfun4():
     return "hello"
 print(myfun4())
+
+
+#preserving function metadata - function is decorated, its metadata like name and docstring are lost. 
+
+#normally a fnunctifon name can be returned with the __name__ attribute 
+def myfun5():
+    return "hello"
+print(myfun5.__name__)  # Output: myfun5
+#but when decorated, it returns the name of the inner function instead of the original function.
+def changecaseee(func):
+    def myinnerrr():
+        return func().upper()
+    return myinnerrr
+@changecaseee
+def myfun6():
+    return "hello"
+print(myfun6.__name__)  # Output: myinnerrr
+
+#To preserve the original function's metadata, we can use the functools.wraps decorator from the functools module.
+import functools
+def changecaseeee(func):
+    @functools.wraps(func)
+    def myinnerrrr():
+        return func().upper()
+    return myinnerrrr
+@changecaseeee
+def myfun7():
+    return "hello"
+print(myfun7.__name__)  # Output: myfun7
+
+#By using @functools.wraps(func), the inner function myinnerrrr now correctly reflects the metadata of the original function myfun7.
