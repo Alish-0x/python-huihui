@@ -11,6 +11,7 @@ A comprehensive guide covering fundamental to intermediate Python concepts, orga
 - [Day 4: Sets](#day-4-sets)
 - [Day 5: Dictionaries](#day-5-dictionaries)
 - [Day 6: Control Flow and Functions](#day-6-control-flow-and-functions)
+- [Day 7: Decorators & range](#day-7-decorators--range)
 
 ---
 
@@ -1160,6 +1161,139 @@ def greet(name: str) -> str:
 
 
 
+## Day 7: Decorators & range
+
+### Topics Covered
+- **Decorators** - Functions that modify other functions
+- **range()** - Creating integer sequences for iteration
+
+### Quick Overview
+
+#### Decorators
+Decorators are higher-order functions that take a function as input and return a new function (usually a wrapper) that adds behavior before or after the original function runs. Use `functools.wraps` to preserve metadata.
+
+```python
+from functools import wraps
+
+def my_decorator(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        print("Before the function")
+        result = func(*args, **kwargs)
+        print("After the function")
+        return result
+    return wrapper
+
+@my_decorator
+def say_hello(name):
+    print(f"Hello, {name}!")
+
+say_hello("Alice")
+# Output:
+# Before the function
+# Hello, Alice!
+# After the function
+```
+
+Decorators with arguments:
+
+```python
+def repeat(n):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            for _ in range(n):
+                func(*args, **kwargs)
+        return wrapper
+    return decorator
+
+@repeat(3)
+def greet():
+    print("Hi")
+
+greet()  # prints Hi three times
+```
+
+Common uses: logging, timing, memoization, access control, input validation.
+
+#### range()
+`range()` creates an iterable sequence of integers. It is memory-efficient and commonly used with loops.
+
+```python
+range(5)        # 0,1,2,3,4
+range(2, 8)     # 2,3,4,5,6,7
+range(0, 10, 2) # 0,2,4,6,8
+list(range(5))  # [0,1,2,3,4]
+for i in range(5):
+    print(i)
+
+# Negative step
+list(range(5, 0, -1))  # [5,4,3,2,1]
+```
+
+Use `len(range(...))` to get its length, and remember it's lazy — it doesn't build the full list unless you convert it to one.
+
+### Short Exercises (Day 7)
+
+1) Write a decorator `timer` that prints how long a function took to run.
+
+Answer (example):
+```python
+import time
+from functools import wraps
+
+def timer(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        start = time.perf_counter()
+        result = func(*args, **kwargs)
+        end = time.perf_counter()
+        print(f"{func.__name__} took {end-start:.6f}s")
+        return result
+    return wrapper
+
+@timer
+def do_work(n):
+    sum(i*i for i in range(n))
+
+do_work(100000)
+```
+
+2) Using `range()`, produce the list: [10, 8, 6, 4, 2].
+
+Answer:
+```python
+list(range(10, 0, -2))  # [10,8,6,4,2]
+```
+
+3) Create a decorator `count_calls` that adds an attribute `calls` to the wrapped function counting how many times it was called.
+
+Answer (example):
+```python
+from functools import wraps
+
+def count_calls(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        wrapper.calls += 1
+        return func(*args, **kwargs)
+    wrapper.calls = 0
+    return wrapper
+
+@count_calls
+def ping():
+    print("pong")
+
+ping(); ping(); ping()
+print(ping.calls)  # 3
+```
+
+---
+
 **Happy Coding! 🐍✨**
 
-*Last Updated: October 2025*
+*Last Updated: October 10, 2025*
+
+---
+
+
