@@ -1,5 +1,3 @@
-<!-- Revision -->
-
 # Python Learning Journey 🐍
 
 A comprehensive guide covering fundamental to intermediate Python concepts, organized day-by-day.
