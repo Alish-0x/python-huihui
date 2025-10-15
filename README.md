@@ -14,7 +14,6 @@ A comprehensive guide covering fundamental to intermediate Python concepts, orga
 - [Day 7: Decorators & range](#day-7-decorators--range)
 
 ---
-
 ## Day 0: Python Basics
 
 ### Topics Covered
