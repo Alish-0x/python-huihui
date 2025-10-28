@@ -11,7 +11,6 @@ A comprehensive guide covering fundamental to intermediate Python concepts, orga
 - [Day 5: Dictionaries](#day-5-dictionaries)
 - [Day 6: Control Flow and Functions](#day-6-control-flow-and-functions)
 - [Day 7: Decorators & range](#day-7-decorators--range)
-
 ---
 ## Day 0: Python Basics
 
