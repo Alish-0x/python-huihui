@@ -2,6 +2,7 @@
 A comprehensive guide covering fundamental to intermediate Python concepts, organized day-by-day.
 
 ## 📚 Table of Contents
+
 - [Day 0: Python Basics](#day-0-python-basics)
 - [Day 1: Strings and Operators](#day-1-strings-and-operators)
 - [Day 2: Lists](#day-2-lists)
